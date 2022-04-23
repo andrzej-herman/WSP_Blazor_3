@@ -1,0 +1,41 @@
+<div class="row mt-3">
+    <div class="col-sm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Pierwsza liczba</label>
+                <input type="text" class="form-control" @bind-value="@firstNumber">
+            </div>
+            <div class="form-group mt-2">
+                <label for="exampleInputEmail1">Druga liczba</label>
+                <input type="text" class="form-control" @bind-value="@secondNumber">
+            </div>
+            <button class="btn btn-primary mt-3" @onclick="Count">Oblicz</button>
+        <hr/>
+        <h1>Wynik: @result</h1>
+    </div>
+    <div class="col-sm"></div>
+    <div class="col-sm"></div>
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public string OperationType { get; set; }
+
+
+    private int firstNumber { get; set; }
+    private int secondNumber { get; set; }
+    private int result { get; set; }
+
+    void Count()
+    {
+        if (OperationType == "dodawanie")
+            result = firstNumber + secondNumber;
+        else if (OperationType == "odejmowanie")
+            result = firstNumber - secondNumber;
+        else
+            result = firstNumber * secondNumber;
+    }
+
+}

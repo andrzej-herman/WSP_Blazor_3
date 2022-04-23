@@ -1,0 +1,79 @@
+@page "/student"
+@using Models
+@using WSP_Blazor_3.Components
+<h1>Studenci</h1>
+<hr/>
+@if (students != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Imie</th>
+            <th scope="col">Nazwisko</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                <tr>
+                    <th scope="row">@student.StudentId</th>
+                    <td>@student.FirstName</td>
+                    <td>@student.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>Trwa ładowanie listy studentów ...</div>
+}
+
+<div class="row mt-3">
+    <div class="col-sm">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Imię</label>
+                <input type="text" class="form-control" @bind-value="@newStudent.FirstName">
+            </div>
+            <div class="form-group mt-2">
+                <label for="exampleInputEmail1">Nazwisko</label>
+                <input type="text" class="form-control" @bind-value="@newStudent.LastName">
+            </div>
+            <button class="btn btn-primary mt-3" @onclick="Dodaj">Dodaj</button>
+        <hr/>
+    </div>
+    <div class="col-sm"></div>
+    <div class="col-sm"></div>
+</div>
+
+
+@code {
+
+    List<Student> students;
+    Student newStudent = new Student();
+
+    protected override void OnInitialized()
+    {
+        students = new List<Student>()
+        {
+            new Student(1, "Jan", "Kowalski"),
+            new Student(2, "Agata", "Nowak"),
+            new Student(3, "Tomasz", "Kot"),
+            new Student(4, "Janusz", "Brzęczyszczykiewicz"),
+            new Student(5, "Dorota", "Polańska"),
+            new Student(6, "Grzegorz", "Markowski"),
+        };
+    }
+
+    void Dodaj()
+    {
+        var id = students.Max(s => s.StudentId) + 1;
+        newStudent.StudentId = id;
+        students.Add(newStudent);
+    }
+}
+
+
+
+
